@@ -8,7 +8,7 @@ from inky.mock import InkyMockImpression
 #import paho.mqtt.client as mqtt #import the client1
 from queue import Queue
 
-msgQ = Queue():json
+msgQ = Queue()
 
 def on_message(cl, userdata, message):
 #    print("message received " ,str(message.payload.decode("utf-8")))
@@ -36,7 +36,7 @@ def on_message(cl, userdata, message):
 
 
 inky = InkyMockImpression()
-font = ImageFont.truetype('dejavu/DejaVuSansCondensed.ttf', 40, encoding="unic")
+font = ImageFont.truetype('truetype/dejavu/DejaVuSans.ttf', 40, encoding="unic")
 
 #canvas = Image.new("RGB", (inky.width, inky.height), (255, 255, 255))
 #draw = ImageDraw.Draw(canvas)
@@ -55,6 +55,7 @@ broker_address="localhost"
 #print("creating new instance")
 client = mqtt.Client("P1") #create new instance
 #print("connecting to broker")
+client.username_pw_set("mos_serv", "L1qu0r1ce")
 client.connect(broker_address) #connect to broker
 #print("Subscribing to topic","enviro/kitchen")
 client.subscribe("enviro/kitchen")
