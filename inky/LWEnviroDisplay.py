@@ -66,10 +66,7 @@ client.loop_start()    #start the loop
 while True:
     while not msgQ.empty():   # This will sequentially read out queued messages
         data = msgQ.get()
-#        print("queue: ",data)
-#        print( "DateTime = ", data["timestamp"], type(data["timestamp"]) )
         dt = datetime.strptime(data["timestamp"], '%Y-%m-%dT%H:%M:%SZ')
-#        print ((dt), type(dt))
         readings = data["readings"]
 #        print( "Pressure = ", readings["pressure"], type(readings["pressure"]) )
 #        print( "Humidity = ", readings["humidity"], type(readings["humidity"]) )
