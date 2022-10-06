@@ -7,6 +7,7 @@ from PIL import Image,ImageDraw,ImageFont
 from inky.mock import InkyMockImpression
 #import paho.mqtt.client as mqtt #import the client1
 from queue import Queue
+from inky import auto
 
 msgQ = Queue()
 
@@ -35,7 +36,11 @@ def on_message(cl, userdata, message):
     #plt.savefig('foo.png')
 
 
-inky = InkyMockImpression()
+def on_connect(client, userdata, flags, rc):
+    print("Connected flags ",str(flags),"result code ",str(rc))
+
+#inky = InkyMockImpression()
+inky = auto()
 font = ImageFont.truetype('truetype/dejavu/DejaVuSans.ttf', 40, encoding="unic")
 
 #canvas = Image.new("RGB", (inky.width, inky.height), (255, 255, 255))
@@ -51,15 +56,17 @@ font = ImageFont.truetype('truetype/dejavu/DejaVuSans.ttf', 40, encoding="unic")
 #inky.set_image(canvas, saturation=saturation)
 #inky.show()
 
+#broker_address="192.168.86.244" 
 broker_address="localhost" 
 #print("creating new instance")
-client = mqtt.Client("P1") #create new instance
+client = mqtt.Client("P1", True) #create new instance
 #print("connecting to broker")
-client.username_pw_set("mos_serv", "L1qu0r1ce")
+client.username_pw_set("mos-serv", "L1qu0r1ce")
 client.connect(broker_address) #connect to broker
 #print("Subscribing to topic","enviro/kitchen")
 client.subscribe("enviro/kitchen")
 client.on_message=on_message        #attach function to callback
+client.on_connect = on_connect
 
 client.loop_start()    #start the loop
 
