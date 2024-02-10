@@ -39,21 +39,21 @@ client.loop_start()    #start the loop
 
 then = datetime.now()
 then = datetime.now().minute
-print ( 'then = ' + str(then) )
+#print ( 'then = ' + str(then) )
 
 while True:
     
     now = datetime.now().minute
-    print ( 'now = ' + str(now) )
+#    print ( 'now = ' + str(now) )
     if now != then:
         then = now
-        myInky.draw( )
+#        myInky.draw( )
         
     while not msgQ.empty():   # This will sequentially read out queued messages
         data = msgQ.get()
         
         m = data['model']
-#        print( 'Model = ' + m )
+        print( 'Model = ' + m )
         
         if m == 'urban':
             myDB.add_urban_data( data )
